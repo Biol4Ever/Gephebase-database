@@ -1,0 +1,107 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * PhenotypeTrait
+ *
+ * @ORM\Table(name="phenotype_trait", indexes={@ORM\Index(name="phenotype_search_idx", columns={"description", "category"})})
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PhenotypeTraitRepository")
+ */
+class PhenotypeTrait
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="category", type="string", length=255, nullable=true)
+     */
+    private $category;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="state_in_taxon_a", type="string", length=255, nullable=true)
+     */
+    private $stateInTaxonA;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="state_in_taxon_b", type="string", length=255, nullable=true)
+     */
+    private $stateInTaxonB;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return PhenotypeTrait
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set category
+     *
+     * @param string $category
+     * @return PhenotypeTrait
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+}

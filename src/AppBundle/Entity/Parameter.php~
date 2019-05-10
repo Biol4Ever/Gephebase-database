@@ -1,0 +1,275 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Parameter
+ *
+ * @ORM\Table(name="parameter")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ParameterRepository")
+ */
+class Parameter
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contact", type="string", length=255)
+     */
+    private $contact;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contact_validator", type="string", length=255)
+     */
+    private $contactValidator;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="homepage_description", type="string", length=5000)
+     */
+    private $homepageDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="whats_new", type="string", length=5000)
+     */
+    private $whatsNew;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="base", type="string", length=255)
+     */
+    private $base;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="lastEntry", type="datetime", nullable=true)
+     */
+    private $lastEntry;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="lastReference", type="datetime", nullable=true)
+     */
+    private $lastReference;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     */
+    private $user;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set contact
+     *
+     * @param string $contact
+     * @return Parameters
+     */
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
+    /**
+     * Get contact
+     *
+     * @return string 
+     */
+    public function getContact()
+    {
+        return $this->contact;
+    }
+
+    /**
+     * Set contactValidator
+     *
+     * @param string $contactValidator
+     * @return Parameters
+     */
+    public function setContactValidator($contactValidator)
+    {
+        $this->contactValidator = $contactValidator;
+
+        return $this;
+    }
+
+    /**
+     * Get contactValidator
+     *
+     * @return string 
+     */
+    public function getContactValidator()
+    {
+        return $this->contactValidator;
+    }
+
+    /**
+     * Set homepageDescription
+     *
+     * @param string $homepageDescription
+     * @return Parameters
+     */
+    public function setHomepageDescription($homepageDescription)
+    {
+        $this->homepageDescription = $homepageDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get homepageDescription
+     *
+     * @return string 
+     */
+    public function getHomepageDescription()
+    {
+        return $this->homepageDescription;
+    }
+
+    /**
+     * Set whatsNew
+     *
+     * @param string $whatsNew
+     * @return Parameters
+     */
+    public function setWhatsNew($whatsNew)
+    {
+        $this->whatsNew = $whatsNew;
+
+        return $this;
+    }
+
+    /**
+     * Get whatsNew
+     *
+     * @return string 
+     */
+    public function getWhatsNew()
+    {
+        return $this->whatsNew;
+    }
+
+    /**
+     * Set base
+     *
+     * @param string $base
+     * @return Parameters
+     */
+    public function setBase($base)
+    {
+        $this->base = $base;
+
+        return $this;
+    }
+
+    /**
+     * Get base
+     *
+     * @return string 
+     */
+    public function getBase()
+    {
+        return $this->base;
+    }
+
+
+    /**
+     * Set lastEntry
+     *
+     * @param \DateTime $lastEntry
+     * @return Parameters
+     */
+    public function setLastEntry()
+    {
+        $this->lastEntry = new \DateTime("now");
+
+        return $this;
+    }
+
+
+    /**
+     * Get lastEntry
+     *
+     * @return \DateTime 
+     */
+    public function getLastEntry()
+    {
+        return $this->lastEntry;
+    }
+
+    /**
+     * Set lastReference
+     *
+     * @param \DateTime $lastReference
+     * @return Parameters
+     */
+    public function setLastReference($lastReference)
+    {
+        $this->lastReference = $lastReference;
+
+        return $this;
+    }
+    /**
+     * Get lastReference
+     *
+     * @return \DateTime 
+     */
+    public function getLastReference()
+    {
+        return $this->lastReference;
+    }
+
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return Parameter
+     */
+    public function setUser(\AppBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

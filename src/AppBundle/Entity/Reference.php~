@@ -1,0 +1,577 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Reference
+ *
+ * @ORM\Table(name="reference")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ReferenceRepository")
+ */
+class Reference
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="author_name", type="string", length=255)
+     */
+    private $authorName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="article_title", type="string", length=255)
+     */
+    private $articleTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="journal_abbreviation", type="string", length=255)
+     */
+    private $journalAbbreviation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="journal_title", type="string", length=255)
+     */
+    private $journalTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="journal_volume", type="string", length=255)
+     */
+    private $journalVolume;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="journal_year", type="string", length=255)
+     */
+    private $journalYear;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="journal_pagination", type="string", length=255)
+     */
+    private $journalPagination;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="publication_type", type="string", length=255)
+     */
+    private $publicationType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="author_initials", type="string", length=255)
+     */
+    private $authorInitials;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="author_identifier", type="string", length=255)
+     */
+    private $authorIdentifier;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="abstract", type="string", length=255)
+     */
+    private $abstract;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="doi", type="string", length=255)
+     */
+    private $doi;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pm_id", type="string", length=255)
+     */
+    private $pmId;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Entry", inversedBy="otherReferences")
+     * @ORM\JoinTable(name="reference_entry")
+     */
+    private $entries;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Reference", mappedBy="mainReference")
+     */
+    private $otherReferences;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Reference", inversedBy="otherReferences")
+     * @ORM\JoinColumn(name="main_reference", referencedColumnName="id")
+     */
+    private $mainReference;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Author")
+     * @ORM\JoinTable(name="reference_author")
+     */
+    private $authors;
+
+    public function __construct()
+    {
+        $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->otherReferences = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->authors = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     * @return Reference
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Reference
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set journalTitle
+     *
+     * @param string $journalTitle
+     * @return Reference
+     */
+    public function setJournalTitle($journalTitle)
+    {
+        $this->journalTitle = $journalTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get journalTitle
+     *
+     * @return string 
+     */
+    public function getJournalTitle()
+    {
+        return $this->journalTitle;
+    }
+
+    /**
+     * Set journalVolume
+     *
+     * @param string $journalVolume
+     * @return Reference
+     */
+    public function setJournalVolume($journalVolume)
+    {
+        $this->journalVolume = $journalVolume;
+
+        return $this;
+    }
+
+    /**
+     * Get journalVolume
+     *
+     * @return string 
+     */
+    public function getJournalVolume()
+    {
+        return $this->journalVolume;
+    }
+
+    /**
+     * Set publicationType
+     *
+     * @param string $publicationType
+     * @return Reference
+     */
+    public function setPublicationType($publicationType)
+    {
+        $this->publicationType = $publicationType;
+
+        return $this;
+    }
+
+    /**
+     * Get publicationType
+     *
+     * @return string 
+     */
+    public function getPublicationType()
+    {
+        return $this->publicationType;
+    }
+
+    /**
+     * Set authorInitials
+     *
+     * @param string $authorInitials
+     * @return Reference
+     */
+    public function setAuthorInitials($authorInitials)
+    {
+        $this->authorInitials = $authorInitials;
+
+        return $this;
+    }
+
+    /**
+     * Get authorInitials
+     *
+     * @return string 
+     */
+    public function getAuthorInitials()
+    {
+        return $this->authorInitials;
+    }
+
+    /**
+     * Set authorIdentifier
+     *
+     * @param string $authorIdentifier
+     * @return Reference
+     */
+    public function setAuthorIdentifier($authorIdentifier)
+    {
+        $this->authorIdentifier = $authorIdentifier;
+
+        return $this;
+    }
+
+    /**
+     * Get authorIdentifier
+     *
+     * @return string 
+     */
+    public function getAuthorIdentifier()
+    {
+        return $this->authorIdentifier;
+    }
+
+    /**
+     * Set abstract
+     *
+     * @param string $abstract
+     * @return Reference
+     */
+    public function setAbstract($abstract)
+    {
+        $this->abstract = $abstract;
+
+        return $this;
+    }
+
+    /**
+     * Get abstract
+     *
+     * @return string 
+     */
+    public function getAbstract()
+    {
+        return $this->abstract;
+    }
+
+    /**
+     * Set doi
+     *
+     * @param string $doi
+     * @return Reference
+     */
+    public function setDoi($doi)
+    {
+        $this->doi = $doi;
+
+        return $this;
+    }
+
+    /**
+     * Get doi
+     *
+     * @return string 
+     */
+    public function getDoi()
+    {
+        return $this->doi;
+    }
+
+    /**
+     * Set pmId
+     *
+     * @param string $pmId
+     * @return Reference
+     */
+    public function setPmId($pmId)
+    {
+        $this->pmId = $pmId;
+
+        return $this;
+    }
+
+    /**
+     * Get pmId
+     *
+     * @return string 
+     */
+    public function getPmId()
+    {
+        return $this->pmId;
+    }
+
+    /**
+     * Set authorName
+     *
+     * @param string $authorName
+     * @return Reference
+     */
+    public function setAuthorName($authorName)
+    {
+        $this->authorName = $authorName;
+
+        return $this;
+    }
+
+    /**
+     * Get authorName
+     *
+     * @return string 
+     */
+    public function getAuthorName()
+    {
+        return $this->authorName;
+    }
+
+    /**
+     * Set articleTitle
+     *
+     * @param string $articleTitle
+     * @return Reference
+     */
+    public function setArticleTitle($articleTitle)
+    {
+        $this->articleTitle = $articleTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get articleTitle
+     *
+     * @return string 
+     */
+    public function getArticleTitle()
+    {
+        return $this->articleTitle;
+    }
+
+    /**
+     * Add entries
+     *
+     * @param \AppBundle\Entity\Entry $entries
+     * @return Reference
+     */
+    public function addEntry(\AppBundle\Entity\Entry $entries)
+    {
+        $this->entries[] = $entries;
+
+        return $this;
+    }
+
+    /**
+     * Remove entries
+     *
+     * @param \AppBundle\Entity\Entry $entries
+     */
+    public function removeEntry(\AppBundle\Entity\Entry $entries)
+    {
+        $this->entries->removeElement($entries);
+    }
+
+    /**
+     * Get entries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEntries()
+    {
+        return $this->entries;
+    }
+
+    /**
+     * Add otherReferences
+     *
+     * @param \AppBundle\Entity\Reference $otherReferences
+     * @return Reference
+     */
+    public function addOtherReference(\AppBundle\Entity\Reference $otherReferences)
+    {
+        $this->otherReferences[] = $otherReferences;
+
+        return $this;
+    }
+
+    /**
+     * Remove otherReferences
+     *
+     * @param \AppBundle\Entity\Reference $otherReferences
+     */
+    public function removeOtherReference(\AppBundle\Entity\Reference $otherReferences)
+    {
+        $this->otherReferences->removeElement($otherReferences);
+    }
+
+    /**
+     * Get otherReferences
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOtherReferences()
+    {
+        return $this->otherReferences;
+    }
+
+    /**
+     * Set mainReference
+     *
+     * @param \AppBundle\Entity\Reference $mainReference
+     * @return Reference
+     */
+    public function setMainReference(\AppBundle\Entity\Reference $mainReference = null)
+    {
+        $this->mainReference = $mainReference;
+
+        return $this;
+    }
+
+    /**
+     * Get mainReference
+     *
+     * @return \AppBundle\Entity\Reference 
+     */
+    public function getMainReference()
+    {
+        return $this->mainReference;
+    }
+
+    /**
+     * Add authors
+     *
+     * @param \AppBundle\Entity\Author $authors
+     * @return Reference
+     */
+    public function addAuthor(\AppBundle\Entity\Author $authors)
+    {
+        $this->authors[] = $authors;
+
+        return $this;
+    }
+
+    /**
+     * Remove authors
+     *
+     * @param \AppBundle\Entity\Author $authors
+     */
+    public function removeAuthor(\AppBundle\Entity\Author $authors)
+    {
+        $this->authors->removeElement($authors);
+    }
+
+    /**
+     * Get authors
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAuthors()
+    {
+        return $this->authors;
+    }
+
+    /**
+     * Set journalAbbreviation
+     *
+     * @param string $journalAbbreviation
+     * @return Reference
+     */
+    public function setJournalAbbreviation($journalAbbreviation)
+    {
+        $this->journalAbbreviation = $journalAbbreviation;
+
+        return $this;
+    }
+
+    /**
+     * Get journalAbbreviation
+     *
+     * @return string 
+     */
+    public function getJournalAbbreviation()
+    {
+        return $this->journalAbbreviation;
+    }
+}

@@ -1,0 +1,108 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Synonym
+ *
+ * @ORM\Table(name="synonym")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SynonymRepository")
+ */
+class Synonym
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Entry", inversedBy="synonyms")
+     * @ORM\JoinTable(name="synonyms_entry")
+     */
+    private $entries;
+
+    public function __construct() {
+        $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Synonym
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add entries
+     *
+     * @param \AppBundle\Entity\Entry $entries
+     * @return Synonym
+     */
+    public function addEntry(\AppBundle\Entity\Entry $entries)
+    {
+        $this->entries[] = $entries;
+
+        return $this;
+    }
+
+    /**
+     * Remove entries
+     *
+     * @param \AppBundle\Entity\Entry $entries
+     */
+    public function removeEntry(\AppBundle\Entity\Entry $entries)
+    {
+        $this->entries->removeElement($entries);
+    }
+
+    /**
+     * Get entries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEntries()
+    {
+        return $this->entries;
+    }
+}
